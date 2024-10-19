@@ -12,8 +12,10 @@ package Controller;
 //imports
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//---view
 import view.GUIHistoria;
 import view.GUIIntrucciones;
+import view.GUILaberinto;
 import view.GUIPrincipal;
 
 //codigo
@@ -21,11 +23,19 @@ public class ControladorPrincipal implements ActionListener{
     private GUIPrincipal guiPrincipal;
     private GUIIntrucciones guiIntrucciones;
     private GUIHistoria guiHistoria;
+    private GUILaberinto guiLaberinto;
 
     public ControladorPrincipal() {
+        //menu-pagina inicio
         guiPrincipal = new GUIPrincipal(this);
+   
+        //instrucciones - historia
         guiIntrucciones = new GUIIntrucciones(this);
         guiHistoria = new GUIHistoria(this);
+        
+        //Laberinto
+        guiLaberinto = new GUILaberinto(this);
+        
         guiPrincipal.setVisible(true);
     }//metodo constructor sin parametros
     
@@ -35,8 +45,10 @@ public class ControladorPrincipal implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
            
-            case "Jugar":
-                 System.out.println("Selecciono jugar");
+            case "btnJugar":
+                 guiLaberinto.setVisible(true);
+                 guiPrincipal.setVisible(false);
+
                 break;
             
             case "btnHistoria":
@@ -61,7 +73,12 @@ public class ControladorPrincipal implements ActionListener{
             case "btnClose":  
                 guiHistoria.setVisible(false);
                 guiPrincipal.setVisible(true);
-                break;    
+                break;   
+                
+            case "btnVolver":  
+                guiLaberinto.setVisible(false);
+                guiPrincipal.setVisible(true);
+                break;       
         }
     }
     
