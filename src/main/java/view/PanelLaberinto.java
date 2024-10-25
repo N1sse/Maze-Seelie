@@ -9,10 +9,17 @@ package view;
  * @author ramir
  */
 
-//imports
+//-----imports-----
+//--controlador
 import Controller.ControladorLaberinto;
+
+//--graphics
 import java.awt.Graphics;
+
+//--border
 import javax.swing.BorderFactory;
+
+//--imageIcon
 import javax.swing.ImageIcon;
 
 //codigo
@@ -29,17 +36,17 @@ public class PanelLaberinto extends javax.swing.JPanel {
         //Este metodo crea el espacio para subir la imagen de la parte juagable del laberinto 
         areaLaberinto = new ImageIcon("./src/main/resources/img/areaJuego.png");
         
-        //Para que no aparezca el fondo se puso opaque false en la parte de design aunque tambien se pudo haber puesto setOpaque en el source
+        //Para que no aparezca el fondo se puso opaque false en la parte de design aunque tambien se puede poner setOpaque en el source
     }//fin metodo constructor sin parametros
 
     public void setControlador(ControladorLaberinto controladorLaberinto){
        this.controladorLaberinto=controladorLaberinto;
-   }
+   }//fin setControlador
     
     public void paint(Graphics g){
         super.paint(g);
         areaLaberinto.paintIcon(this, g, 0, 0);
-    }
+    }//fin paint
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
