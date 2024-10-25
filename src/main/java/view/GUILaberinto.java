@@ -4,26 +4,49 @@
  */
 package view;
 
-import Controller.ControladorPrincipal;
-
 /**
  *
  * @author ramir
  */
+//-----Imports-----
+//--Controlador
+import Controller.ControladorPrincipal;
+
+//--Mouse Listener
+import java.awt.event.MouseListener;
+
+//-----codigo
 public class GUILaberinto extends javax.swing.JFrame {
+     private PanelLaberinto panelLaberinto; 
 
     /**
      * Creates new form GUILaberinto
      */
-    public GUILaberinto(ControladorPrincipal controlador) {
+    public GUILaberinto(Controller.ControladorPrincipal controlador) {
         initComponents();
+        
+        //Para volver a guiPrincipal(menu)
         escucharVolver(controlador);
+        
+        //Hacer visible al GUILaberinto
         setVisible(true);
-    }
+          
+    }//fin metodo GUILaberinto
+    
+    public PanelLaberinto getPanelLaberinto(){
+        return panelLaberinto;
+    }//fin getPanelLaberinto
+    
+     public void escuchar(MouseListener controlador){
+         this.addMouseListener(controlador);
+     }
     
     public void escucharVolver(ControladorPrincipal controlador){
+       // Este método permite que al hacer clic en el botón, el usuario regrese a la pantalla principal
        btnVolver.addActionListener(controlador);
-    }
+    }//fin escucharVolver
+    
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,12 +57,31 @@ public class GUILaberinto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelLaberinto2 = new view.PanelLaberinto();
         tiempo = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
         laberinto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelLaberinto2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelLaberinto2.setAlignmentX(0.0F);
+        panelLaberinto2.setAlignmentY(0.0F);
+        panelLaberinto2.setEnabled(false);
+
+        javax.swing.GroupLayout panelLaberinto2Layout = new javax.swing.GroupLayout(panelLaberinto2);
+        panelLaberinto2.setLayout(panelLaberinto2Layout);
+        panelLaberinto2Layout.setHorizontalGroup(
+            panelLaberinto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 558, Short.MAX_VALUE)
+        );
+        panelLaberinto2Layout.setVerticalGroup(
+            panelLaberinto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 448, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelLaberinto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 560, 450));
 
         tiempo.setFont(new java.awt.Font("Segoe UI", 0, 3)); // NOI18N
         tiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tiempo.png"))); // NOI18N
@@ -52,7 +94,7 @@ public class GUILaberinto extends javax.swing.JFrame {
         btnVolver.setContentAreaFilled(false);
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, 220, 50));
 
-        laberinto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/laberinto.png"))); // NOI18N
+        laberinto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/laberinto-fondo.png"))); // NOI18N
         laberinto.setText("jLabel1");
         getContentPane().add(laberinto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 868, -1));
 
@@ -67,6 +109,7 @@ public class GUILaberinto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel laberinto;
+    private view.PanelLaberinto panelLaberinto2;
     private javax.swing.JLabel tiempo;
     // End of variables declaration//GEN-END:variables
 }
