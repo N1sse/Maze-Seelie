@@ -11,6 +11,8 @@ package Controller;
 
 //-----Imports-----
 //--mouse
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -19,7 +21,7 @@ import view.GUILaberinto;
 import view.PanelLaberinto;
 
 //Codigo
-public class ControladorLaberinto implements MouseListener{
+public class ControladorLaberinto implements KeyListener{
     private GUILaberinto guiLaberinto;
     private PanelLaberinto panelLaberinto;
     private ControladorPrincipal controladorPrincipal;
@@ -31,31 +33,22 @@ public class ControladorLaberinto implements MouseListener{
         
     }//Fin metodo sin parametros
 
-    //MouseListener
+    //KeyListener
+   
     @Override
-    public void mouseClicked(MouseEvent e) {
-           
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        
+    public void keyPressed(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-      
-    }
-    //Fin MouseListener
+     //Fin KListener
     
 }//fin ControladorLaberinto
