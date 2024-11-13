@@ -1,5 +1,6 @@
 view\GUILaberinto.class
 view\GUIPrincipal$1.class
+view\GUILose.class
 Controller\ControladorLaberinto.class
 com\mycompany\seelieadventuremaze\SeelieAdventureMaze.class
 view\GUIIntrucciones.class
@@ -9,6 +10,8 @@ view\GUIPrincipal$2.class
 view\GUIPrincipal.class
 modelo\SeelieEnemigo.class
 modelo\Laberinto.class
+view\GUIWin.class
 view\PanelLaberinto.class
 view\GUIPrincipal$3.class
+view\GUIWin$1.class
 modelo\KianPersonaje.class

@@ -12,16 +12,21 @@ package view;
 //-----imports-----
 //--controlador
 import Controller.ControladorLaberinto;
+import java.awt.Dimension;
 
 //--graphics
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 //--border
 import javax.swing.BorderFactory;
 
 //--imageIcon
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 //modelo
 import modelo.KianPersonaje;
@@ -29,104 +34,123 @@ import modelo.Laberinto; //matriz
 import modelo.SeelieEnemigo;
 
 //codigo
-public class PanelLaberinto extends javax.swing.JPanel {
+//codigo
+public class PanelLaberinto extends JPanel {
+    //controller
     private ControladorLaberinto controladorLaberinto;
-
-    //------panel temporal------
-    private ImageIcon areaLaberinto;
-    
-    
-    //------panel futuro------
    
-    private Laberinto matrizL; //llamar ala matriz
-    
-    //llamar personaje
-    private KianPersonaje personaje;
-    
-    //llamar Enemigo
+    //personaje & enemigo
+    private KianPersonaje kianPersonaje;
     private SeelieEnemigo enemigo;
     
-    //image
-    private Image camino, pared, limite, pista, agua;   
-     private Image imgPersonaje,imgEnemigo;
+    // Imágenes
+    private Image camino,  pared, limite, agua, pista;
+    private Image imagenKian;
+    private Image imagenEnemigo;
+    
+    // Llamar matriz
+    private Laberinto matrizL;
+    
+    
 
-    /**
-     * Creates new form PanelLaberinto
-     */
     public PanelLaberinto() {
         initComponents();
         
-        //------panel temporal------
-        //Este metodo crea el espacio para subir la imagen de la parte juagable del laberinto 
-        areaLaberinto = new ImageIcon("./src/main/resources/img/areaJuego.png");
-        
-        //------panel futuro------
-        //---declarar imagenes
-        //cargarImagenes(); //Esta en comentario para no afectar el codigo actual (por el momento)
-        
-        this.personaje=personaje;//declarar personaje
-       
-        this.enemigo=enemigo;//declarar enemigo
-    }//fin metodo constructor sin parametros
-
-    public void setControlador(ControladorLaberinto controladorLaberinto){
-       this.controladorLaberinto=controladorLaberinto;
-   }//fin setControlador
-   
-    
-   //------panel temporal------
-    public void paint(Graphics g){
-        super.paint(g);
-        areaLaberinto.paintIcon(this, g, 0, 0);
-    }//fin paint
-    
-     //------panel futuro------
-    private void cargarImagenes(){
-        camino =new ImageIcon(getClass().getResource("./img/camino.png")).getImage();
-        pared =new ImageIcon(getClass().getResource("./img/pared.png")).getImage();
-        limite =new ImageIcon(getClass().getResource("./img/limite.png")).getImage();
-        agua =new ImageIcon(getClass().getResource("./img/agua.png")).getImage();
-        pista =new ImageIcon(getClass().getResource("./img/pista.png")).getImage();
-        imgPersonaje = new ImageIcon(getClass().getResource("./img/kianPersonaje.gif")).getImage();
-        imgEnemigo = new ImageIcon(getClass().getResource("./img/enemigo.gif")).getImage();
-    }//fin cargarImagenes
-
+        // Declarar Matriz
+        this.matrizL = new Laberinto(); 
  
-    /* @Override
-    protected void paintComponent(Graphics g){
+        //llamar al personaje & el enemigo
+        this.kianPersonaje = matrizL.getPersonajeKian();
+        this.enemigo=matrizL.getSeelieEnemigo();
+        
+        cargarImagenes();
+        
+        // Inicializar controlador y asignarlo como KeyListener
+        this.controladorLaberinto = new ControladorLaberinto(matrizL, this, enemigo, kianPersonaje);
+        this.addKeyListener(controladorLaberinto);
+        
+        // Tamaño y enfocarlo en el medio
+        this.setPreferredSize(new Dimension(554, 459)); // tamaño de preferencia
+        this.setFocusable(true); // mantener el panel en el foco      
+        this.requestFocusInWindow();
+      
+        this.setVisible(true);//hacer visible el panel
+    }
+    
+    //----------------------------
+     public void addNotify() {
+        super.addNotify();
+        this.requestFocusInWindow();
+    }
+     
+    //---------------------------- 
+    private void cargarImagenes() {
+        // Este método es para cargar las imágenes en los números en la matriz
+        camino = new ImageIcon(getClass().getResource("/img/camino.png")).getImage();
+        pared = new ImageIcon(getClass().getResource("/img/pared.png")).getImage();
+        limite = new ImageIcon(getClass().getResource("/img/limite.png")).getImage();
+        pista = new ImageIcon(getClass().getResource("/img/pista.png")).getImage();
+        agua = new ImageIcon(getClass().getResource("/img/agua.png")).getImage();
+        imagenKian = new ImageIcon(getClass().getResource("/img/kianPersonaje.gif")).getImage();
+        imagenEnemigo = new ImageIcon(getClass().getResource("/img/enemigo.gif")).getImage();
+    }
+
+    private Image cargarImagen(String ruta) {
+        // Este método está para el manejo de error, así si hay algún error se gestionara de manera más fácil
+        try (InputStream is = getClass().getResourceAsStream(ruta)) {
+            if (is == null) {
+                System.err.println("Error: No se encontró la imagen " + ruta);
+                return null;
+            }
+            return ImageIO.read(is);
+        } catch (IOException e) {
+            System.err.println("Error al cargar la imagen: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Dibujar matriz en el panel
+    @Override
+    protected void paintComponent(Graphics g) {
+        //este metodo dibuja los personajes y el laberinto
         super.paintComponent(g);
-        
-        //la matriz debe existir
-        int[][] laberinto = matrizL.getLaberinto();
-        
-        //tamaño celdas
-        int size=46;
-        
-        for(int y=0; y< laberinto.length; y++){
-            for(int x = 0; x < laberinto[y].length;x++){
-                switch(laberinto[y][x]){
+        int[][] laberinto = matrizL.getLaberinto(); // Invoca la matriz en la clase Laberinto
+        int size = 45; // Tamaño para las imágenes
+
+        // Dibujar la matriz
+        for (int y = 0; y < laberinto.length; y++) {
+            for (int x = 0; x < laberinto[y].length; x++) {
+                switch (laberinto[y][x]) {
                     case 0:
-                        g.drawImage(camino, x*size, y*size, size, size, this);
+                        g.drawImage(camino, x * size, y * size, size, size, this);
                         break;
-                        
-                    case 1:  
-                        g.drawImage(pared, x*size, y*size, size, size, this);
+                    case 1:
+                        g.drawImage(pared, x * size, y * size, size, size, this);
                         break;
-                    
-                    case 2:  
-                        g.drawImage(limite, x*size, y*size, size, size, this);
-                        break;                         
-                        
-                     case 3:  
-                        g.drawImage(pista, x*size, y*size, size, size, this);
-                        break;      
-                }//fin swicth
+                    case 2:
+                        g.drawImage(limite, x * size, y * size, size, size, this);
+                        break;
+                    case 3:
+                        g.drawImage(pista, x * size, y * size, size, size, this);
+                        break;
+                    case 4:
+                        g.drawImage(agua, x * size, y * size, size, size, this);
+                        break;
+                }
             }
         }
-        g.drawImage(imgPersonaje, size, size, this);
-        
+
+       // Dibuja al personaje y al enemigo en sus posiciones
+        int movX = kianPersonaje.getMovX();
+        int movY = kianPersonaje.getMovY();
+        g.drawImage( imagenKian, movX * size, movY * size, size, size, this);
+
+        int moveX = enemigo.getMoveX();
+        int moveY = enemigo.getMoveY();
+        g.drawImage(imagenEnemigo, moveX * size, moveY * size, size, size, this);
+
     }
-    */
+   
     
     /**
      * This method is called from within the constructor to initialize the form.

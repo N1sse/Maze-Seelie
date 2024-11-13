@@ -18,13 +18,18 @@ public class GUIHistoria extends javax.swing.JFrame {
      */
    public GUIHistoria(ControladorPrincipal controlador) {
         initComponents(); 
-        escuchar(controlador);
-        setVisible(true);
-    }
+        
+        escuchar(controlador);//para controlar el boton: btnClose
+        
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        
+        setVisible(false); //hacerlo no visible
+    }//fin GUIHistoria
 
     public void escuchar(ControladorPrincipal controlador){
+        //El metodo hace que el boton tenga la funcion de volver al menu o pantalla principal, gracias al controlador
        btnClose.addActionListener(controlador);
-    }
+    }//fin escuchar
 
     /**
      * This method is called from within the constructor to initialize the form.

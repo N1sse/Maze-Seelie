@@ -18,8 +18,13 @@ public class GUIIntrucciones extends javax.swing.JFrame {
      */
     public GUIIntrucciones(ControladorPrincipal controlador) {
         initComponents(); 
-        escucharCerrar(controlador);
-        setVisible(true);
+        
+        escucharCerrar(controlador);//para controlar el boton: btnXCerrar
+        
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        
+        setVisible(false);
+
     }
 
     public void escucharCerrar(ControladorPrincipal controlador){

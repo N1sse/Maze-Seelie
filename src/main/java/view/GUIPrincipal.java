@@ -5,6 +5,7 @@
 package view;
 
 import Controller.ControladorPrincipal;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 
 /**
@@ -12,22 +13,30 @@ import java.awt.event.ActionListener;
  * @author ramir
  */
 public class GUIPrincipal extends javax.swing.JFrame {
-
+    private GUIPrincipal guiPrincipal;
+    
     /**
      * Creates new form GUIPrincipal
      */
     public GUIPrincipal(ControladorPrincipal controlador) {
-        initComponents();
-        escuchar(controlador);
-        setVisible(true);
-    }
+          
+        initComponents();//Es para ubicar los objetos en GUI
+
+        escuchar(controlador);//Accionar de los botones
+      
+        setVisible(true);//hacer el GUIPrincipal visible al ejecutar el código
+        
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        
+    }//fin metodo GUIPrincipal
 
     public void escuchar(ControladorPrincipal controlador){
+        // Este método permite que los botones funcionen a través del controlador
        btnJugar.addActionListener(controlador);
        btnHistoria.addActionListener(controlador);
        btnInstruciones.addActionListener(controlador);
        btnSalir.addActionListener(controlador);
-    }
+    }//fin escuchar
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +107,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

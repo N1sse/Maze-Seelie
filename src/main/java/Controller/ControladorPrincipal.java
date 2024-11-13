@@ -21,19 +21,23 @@ import modelo.SeelieEnemigo;
 import view.GUIHistoria;
 import view.GUIIntrucciones;
 import view.GUILaberinto;
+import view.GUILose;
 import view.GUIPrincipal;
+import view.GUIWin;
 
 //codigo
 public class ControladorPrincipal implements ActionListener{
     //view
-    private GUIPrincipal guiPrincipal;
     private GUIIntrucciones guiIntrucciones;
     private GUIHistoria guiHistoria;
     private GUILaberinto guiLaberinto;
+    private GUIPrincipal guiPrincipal;
+    private GUIWin guiWin;
+    private GUILose guiLose;
     
     //modelo
     private KianPersonaje kianPersonaje;
-    private SeelieEnemigo seelieEnemie;
+    private SeelieEnemigo enemigo;
 
     public ControladorPrincipal() {
         /*Este metodo inicializa las interfaces gráficas para el menú principal, 
@@ -42,14 +46,17 @@ public class ControladorPrincipal implements ActionListener{
         //menu-pagina inicio
         guiPrincipal = new GUIPrincipal(this);
    
-        //instrucciones - historia
+        //instrucciones - historia - win - lose
         guiIntrucciones = new GUIIntrucciones(this);
         guiHistoria = new GUIHistoria(this);
+        guiWin = new GUIWin(this);
+        guiLose = new GUILose(this);
         
         //Laberinto
         guiLaberinto = new GUILaberinto(this);
-        
         guiPrincipal.setVisible(true);
+        
+ 
     }//metodo constructor sin parametros
     
 
@@ -57,12 +64,9 @@ public class ControladorPrincipal implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(e.getActionCommand()){
-           
-            //botones del menu
             case "btnJugar":
-                 guiLaberinto.setVisible(true);
-                 guiPrincipal.setVisible(false);
-
+                guiLaberinto.setVisible(true);
+                guiPrincipal.setVisible(false);
                 break;
             
             case "btnHistoria":
@@ -80,8 +84,8 @@ public class ControladorPrincipal implements ActionListener{
                 break;   
             //fin botones menu
                 
-            //Botones para regresar al main
-                
+            
+       //------Botones para regresar al main     
            //Boton en Instrucciones     
             case "btnXCerrar":  
                 guiIntrucciones.setVisible(false);
@@ -98,7 +102,13 @@ public class ControladorPrincipal implements ActionListener{
             case "btnVolver":  
                 guiLaberinto.setVisible(false);
                 guiPrincipal.setVisible(true);
-                break;       
+                break;  
+                
+       //Boton en GUIWin
+                case "btnAMenu":  
+                guiWin.setVisible(false);
+                guiPrincipal.setVisible(true);
+                break; 
         }//fin switch
         
     }//fin actionPerformed
